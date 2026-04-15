@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="DynTrace is a training-free framework for 4D spatio-temporal reasoning in MLLMs with Dynamic Trajectory Visualization and Dynamic Trace Graph.">
+  <meta name="keywords" content="DynTrace, 4D spatio-temporal reasoning, MLLM, DTV, DTG, dynamic object evidence">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DynTrace: Tracking Dynamic Object Evidence for 4D Spatio-Temporal Reasoning in MLLMs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script defer src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="container is-max-desktop">
+    <div class="navbar-brand">
+      <a class="navbar-item nav-home" href="#top">
+        <span class="nav-mark">DynTrace</span>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarMenu" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item nav-anchor" href="#abstract">Abstract</a>
+        <a class="navbar-item nav-anchor" href="#overview">Motivation</a>
+        <a class="navbar-item nav-anchor" href="#method">Method</a>
+        <a class="navbar-item nav-anchor" href="#results">Results</a>
+        <a class="navbar-item nav-anchor" href="#qualitative">Qualitative</a>
+        <a class="navbar-item nav-anchor" href="#bibtex">BibTeX</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero publication-header" id="top">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <h1 class="title is-1 publication-title">
+            <span class="title-line">
+              <span class="title-inline-brand">
+                <span class="gradient-word">DynTrace</span>
+              </span>: Tracking Dynamic Object Evidence
+            </span>
+            <span class="title-line">for 4D Spatio-Temporal Reasoning in MLLMs</span>
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <div class="author-line">
+              <span class="author-block">Rongxin Gao<sup>1,&dagger;</sup>,</span>
+              <span class="author-block">Yuzhi Huang<sup>1,&dagger;</sup>,</span>
+              <span class="author-block">Dongxuan Liu<sup>1,&dagger;</sup>,</span>
+              <span class="author-block">Chu Li<sup>2</sup>,</span>
+              <span class="author-block">Zhenye Wang<sup>2</sup>,</span>
+              <span class="author-block">Jie Wu<sup>3</sup>,</span>
+            </div>
+            <div class="author-line">
+              <span class="author-block">Shuzhao Xie<sup>3</sup>,</span>
+              <span class="author-block">Jingyan Jiang<sup>4,*</sup>,</span>
+              <span class="author-block">Xinghao Ding<sup>1</sup>,</span>
+              <span class="author-block">Xiaotong Tu<sup>1,*</sup>,</span>
+              <span class="author-block">Yue Huang<sup>1</sup></span>
+            </div>
+          </div>
+
+          <div class="is-size-6 publication-authors publication-affiliations">
+            <div class="affiliation-line">
+              <span class="author-block"><sup>1</sup> Xiamen University</span>
+              <span class="author-block affiliation-gap"><sup>2</sup> China University of Mining and Technology</span>
+            </div>
+            <div class="affiliation-line">
+              <span class="author-block"><sup>3</sup> Shenzhen International Graduate School, Tsinghua University</span>
+              <span class="author-block affiliation-gap"><sup>4</sup> Shenzhen Technology University</span>
+            </div>
+          </div>
+
+          <div class="is-size-6 publication-authors publication-note">
+            <span class="author-block"><sup>&dagger;</sup> Equal contribution.</span>
+            <span class="author-block note-gap"><sup>*</sup> Corresponding authors.</span>
+          </div>
+
+          <div class="is-size-6 publication-authors publication-summary">
+            DynTrace is a training-free framework that supplies MLLMs with continuously tracked dynamic object evidence through Dynamic Trajectory Visualization and a Dynamic Trace Graph.
+          </div>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="#top" class="external-link button is-normal is-rounded is-dark action-link">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#bibtex" class="external-link button is-normal is-rounded is-light action-link">
+                <span class="icon"><i class="fas fa-quote-right"></i></span>
+                <span>BibTex</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#top" class="external-link button is-normal is-rounded is-light action-link">
+                <span class="icon"><i class="fas fa-code"></i></span>
+                <span>Code (Coming Soon)</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section teaser-section" id="abstract">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="paper-card abstract-card">
+          <p class="section-kicker">Abstract</p>
+          <div class="content has-text-justified abstract-copy">
+            <p>
+              4D spatio-temporal reasoning jointly models 3D spatial structure and temporal evolution, but current MLLMs still struggle to maintain coherent dynamic object evidence over time. DynTrace addresses this limitation with two complementary training-free components. <strong>Dynamic Trajectory Visualization (DTV)</strong> reprojects world-coordinate trajectories onto the image plane to disentangle genuine object dynamics from camera-induced apparent motion, while the <strong>Dynamic Trace Graph (DTG)</strong> organizes Dynamic Trace Tokens that preserve dynamic cues, trace evolution, and key moments across time. Together, they provide geometry-informed visual priors and structured spatio-temporal traces for robust reasoning. Across Dyn-Bench, VLM4D, and DSI-Bench, DynTrace consistently improves open-source MLLMs and establishes that tracking dynamic object evidence is critical for 4D spatio-temporal reasoning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft" id="overview">
+  <div class="container is-max-widescreen">
+    <div class="section-intro has-text-centered wide-intro">
+      <p class="section-kicker">Motivation</p>
+      <h2 class="title is-3 section-title">Why current MLLMs fail on dynamic 4D reasoning.</h2>
+    </div>
+
+    <div class="paper-card feature-card motivation-card">
+      <p class="card-kicker">Failure Modes</p>
+      <div class="image-frame">
+        <a href="./assets/intro.png" target="_blank" rel="noreferrer">
+          <img src="./assets/intro.png" alt="DynTrace failure modes illustration.">
+        </a>
+      </div>
+      <p class="figure-caption motivation-detail">
+        (i) <em>Dynamic Source Confusion</em>: ego-motion-aware perception requires disentangling camera motion from genuine object movement, yet even methods injecting geometric cues such as depth or pose do not model ego-motion as a separate factor explicitly. When the camera moves amid multi-entity interactions, models often attribute ego-motion-induced apparent motion to objects, misidentify which entities truly move, and distort relational judgments, making tracked dynamics unreliable. (ii) <em>Dynamic Trace Loss</em>: continuous object tracking requires sufficiently dense temporal coverage to preserve full motion trajectories, yet current strategies rely on sparse frame sampling, temporal token compression, or clip-level summaries rather than continuous object-centric traces. Consequently, dynamic objects' temporal evidence chain fragments, and model attention drifts toward unstable background changes over truly salient motion.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-widescreen">
+    <div class="section-intro has-text-centered wide-intro">
+      <p class="section-kicker">Method</p>
+      <h2 class="title is-3 section-title">Tracking dynamic object evidence before final reasoning.</h2>
+    </div>
+
+    <div class="paper-card feature-card">
+      <div class="image-frame">
+        <a href="./assets/pipeline.png" target="_blank" rel="noreferrer">
+          <img src="./assets/pipeline.png" alt="DynTrace inference pipeline.">
+        </a>
+      </div>
+      <p class="figure-caption">
+        <strong>Overview of DynTrace.</strong> Given a video and a language query, DynTrace follows three stages: (1) Dynamic Objects Extraction identifies query-relevant and independently moving instances, producing temporally consistent dynamic masks; (2) Spatio-Temporal Dynamics Encoding lifts tracked instances into a shared world frame to reconstruct Geometry-Grounded Dynamic Evidence, including Object Trajectory, Camera Behavior, and Relation Evolution, from which it derives DTV through World-to-Image Reprojection and converts Dynamic Cues, Trace Evolution, and Key Moments into object-side and relation-side DT-Tokens before organizing them into a DTG; and (3) Representation Integration &amp; Reasoning feeds DTV, DTG, and the query into the target MLLM for 4D spatio-temporal reasoning.
+      </p>
+    </div>
+
+    <div class="columns is-variable is-5 method-card-row">
+      <div class="column">
+        <div class="paper-card method-card">
+          <p class="card-kicker">Component 1</p>
+          <h3 class="title is-5">Dynamic Trajectory Visualization</h3>
+          <p class="feature-copy">
+            DTV reprojects world-coordinate motion back to the image plane, producing geometry-informed visual priors that make true motion explicit even under viewpoint change, zoom, or camera translation.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="paper-card method-card">
+          <p class="card-kicker">Component 2</p>
+          <h3 class="title is-5">Dynamic Trace Graph</h3>
+          <p class="feature-copy">
+            DTG serializes dynamic cues, trace evolution, and key moments into a compact graph-like textual representation, preserving object-level and relation-level evidence over long temporal horizons.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="paper-card method-card">
+          <p class="card-kicker">Inference Style</p>
+          <h3 class="title is-5">Training-Free Integration</h3>
+          <p class="feature-copy">
+            DynTrace operates at inference time. It upgrades existing open-source MLLMs without retraining, making the framework practical for broad deployment across different backbones and benchmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="paper-card feature-card example-card">
+      <p class="card-kicker">DTV Visualization</p>
+      <div class="columns is-variable is-5 video-showcase-row">
+        <div class="column">
+          <div class="video-frame">
+            <video class="dtv-video" controls playsinline preload="auto" poster="./assets/dtv_1_poster.jpg">
+              <source src="./assets/dtv_1_browser.mp4" type="video/mp4">
+              <source src="./assets/dtv_1.mp4" type="video/mp4">
+            </video>
+            <button class="video-overlay-button" type="button" aria-label="Play video">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+        </div>
+        <div class="column">
+          <div class="video-frame">
+            <video class="dtv-video" controls playsinline preload="auto" poster="./assets/dtv_2_poster.jpg">
+              <source src="./assets/dtv_2_browser.mp4" type="video/mp4">
+              <source src="./assets/dtv_2.mp4" type="video/mp4">
+            </video>
+            <button class="video-overlay-button" type="button" aria-label="Play video">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="paper-card feature-card example-card">
+      <p class="card-kicker">DynTrace Example</p>
+      <div class="image-frame example-frame example-fit-frame">
+        <a href="./assets/case3.jpg" target="_blank" rel="noreferrer">
+          <img src="./assets/case3.jpg" alt="Complete DTV and DTG visualization for Case 3.">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft" id="results">
+  <div class="container is-max-widescreen">
+    <div class="section-intro has-text-centered wide-intro">
+      <p class="section-kicker">Results</p>
+      <h2 class="title is-3 section-title single-line-desktop">Consistent gains across three dynamic reasoning benchmarks.</h2>
+    </div>
+
+    <div class="results-stack">
+      <div class="paper-card table-card">
+        <p class="card-kicker">dyn-bench_results</p>
+        <h3 class="title is-5">Comparison on Dyn-Bench across nine dynamic reasoning categories</h3>
+        <div class="table-scroll">
+          <table class="table is-fullwidth results-table dynbench-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th rowspan="2">Avg.</th>
+                <th colspan="3" class="group-band-orange">Inter-Object</th>
+                <th colspan="3" class="group-band-yellow">Object-Scene</th>
+                <th colspan="3" class="group-band-blue">Camera-Object</th>
+              </tr>
+              <tr>
+                <th>Act. &amp; Obj. Desc.</th>
+                <th>Move. &amp; Temp. Dyn.</th>
+                <th>Spatial Rel. &amp; Change</th>
+                <th>Mov. Patterns &amp; Traj.</th>
+                <th>Spatial Rel. &amp; Comp.</th>
+                <th>Scene Focus &amp; Dyn.</th>
+                <th>Cam. Motion &amp; Orient.</th>
+                <th>Cam-Obj. Interaction</th>
+                <th>Temp. &amp; Visual Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="11"><em>Spatial MLLMs</em></td></tr>
+              <tr><td>SpaceR-7B</td><td>56.5</td><td>66.6</td><td>49.2</td><td>52.7</td><td>72.2</td><td>67.8</td><td>78.2</td><td>50.3</td><td>40.0</td><td>55.5</td></tr>
+              <tr><td>VST-7B-RL</td><td>55.7</td><td>68.6</td><td>48.4</td><td>51.9</td><td>73.0</td><td>70.7</td><td>79.4</td><td>45.1</td><td>39.1</td><td>52.9</td></tr>
+              <tr><td>Spatial-SSRL-7B</td><td>45.9</td><td>54.5</td><td>40.0</td><td>48.1</td><td>68.5</td><td>65.9</td><td>73.8</td><td>35.8</td><td>36.7</td><td>37.7</td></tr>
+              <tr><td>SpatialReasoner</td><td>54.5</td><td>63.2</td><td>44.1</td><td>50.4</td><td>68.2</td><td>64.2</td><td>74.0</td><td>48.0</td><td>44.6</td><td>54.0</td></tr>
+              <tr><td>SpatialThinker-7B</td><td>53.7</td><td>63.2</td><td>40.7</td><td>46.5</td><td>70.6</td><td>67.3</td><td>77.5</td><td>46.0</td><td>42.8</td><td>51.5</td></tr>
+              <tr><td>MLLM-4D-8B</td><td>56.4</td><td>63.6</td><td>44.5</td><td>47.4</td><td>64.3</td><td>61.4</td><td>70.6</td><td>52.4</td><td>52.3</td><td>63.7</td></tr>
+              <tr><td>LLaVA-ST-7B</td><td>50.2</td><td>56.3</td><td>40.3</td><td>48.7</td><td>62.3</td><td>59.8</td><td>70.1</td><td>47.8</td><td>38.9</td><td>46.8</td></tr>
+
+              <tr class="group-row"><td colspan="11"><em>Video MLLMs</em></td></tr>
+              <tr><td>LLaVA-OV-1.5-8B</td><td>53.8</td><td>60.9</td><td>47.7</td><td>53.4</td><td>74.4</td><td>69.6</td><td>75.4</td><td>41.0</td><td>37.0</td><td>51.6</td></tr>
+              <tr><td>Videorefer-7B</td><td>56.1</td><td>65.2</td><td>50.9</td><td>56.5</td><td>73.2</td><td>72.4</td><td>79.0</td><td>36.0</td><td>43.0</td><td>56.1</td></tr>
+              <tr><td>InternVideo2.5-Chat-8B</td><td>54.2</td><td>67.9</td><td>48.5</td><td>46.3</td><td>70.1</td><td>65.8</td><td>76.5</td><td>42.0</td><td>42.9</td><td>52.1</td></tr>
+              <tr><td>VideoLLaMA3-7B</td><td>54.3</td><td>63.2</td><td>40.7</td><td>46.5</td><td>70.6</td><td>67.3</td><td>77.5</td><td>46.0</td><td>42.8</td><td>51.5</td></tr>
+
+              <tr class="group-row"><td colspan="11"><em>Training-free MLLMs</em></td></tr>
+              <tr><td>See&amp;Trek</td><td>51.5</td><td>67.2</td><td>44.8</td><td>49.5</td><td>69.5</td><td>64.7</td><td>72.9</td><td>47.2</td><td>34.5</td><td>41.0</td></tr>
+              <tr><td>GSM</td><td>55.3</td><td>63.9</td><td>49.3</td><td>49.9</td><td>73.3</td><td>70.8</td><td>79.2</td><td>48.5</td><td>36.7</td><td>50.8</td></tr>
+
+              <tr class="group-row"><td colspan="11"><em>Ours</em></td></tr>
+              <tr><td>Qwen3-VL-8B-Instruct</td><td>60.8</td><td>70.8</td><td>52.6</td><td>53.6</td><td>75.0</td><td>71.2</td><td>79.0</td><td>54.3</td><td>51.4</td><td>59.7</td></tr>
+              <tr class="ours-row"><td>+ DynTrace</td><td>65.8 <span class="delta">(+5.0)</span></td><td>79.7 <span class="delta">(+8.9)</span></td><td>57.1 <span class="delta">(+4.5)</span></td><td>62.2 <span class="delta">(+8.6)</span></td><td>80.7 <span class="delta">(+5.7)</span></td><td>75.3 <span class="delta">(+4.1)</span></td><td>85.6 <span class="delta">(+6.6)</span></td><td>58.9 <span class="delta">(+4.6)</span></td><td>52.6 <span class="delta">(+1.2)</span></td><td>64.4 <span class="delta">(+4.7)</span></td></tr>
+              <tr><td>Qwen3-VL-32B-Instruct</td><td>62.4</td><td>71.4</td><td>54.6</td><td>56.1</td><td>75.3</td><td>74.4</td><td>79.8</td><td>55.9</td><td>53.4</td><td>58.4</td></tr>
+              <tr class="ours-row"><td>+ DynTrace</td><td>66.9 <span class="delta">(+4.5)</span></td><td>82.4 <span class="delta">(+11.0)</span></td><td>61.8 <span class="delta">(+7.2)</span></td><td>66.2 <span class="delta">(+10.1)</span></td><td>80.7 <span class="delta">(+5.4)</span></td><td>75.7 <span class="delta">(+1.3)</span></td><td>84.5 <span class="delta">(+4.7)</span></td><td>56.7 <span class="delta">(+0.8)</span></td><td>53.9 <span class="delta">(+0.5)</span></td><td>65.6 <span class="delta">(+7.2)</span></td></tr>
+              <tr><td>InternVL3.5-8B</td><td>53.2</td><td>69.2</td><td>44.4</td><td>47.4</td><td>66.2</td><td>63.7</td><td>71.9</td><td>44.3</td><td>44.8</td><td>49.3</td></tr>
+              <tr class="ours-row"><td>+ DynTrace</td><td>58.0 <span class="delta">(+4.8)</span></td><td>73.9 <span class="delta">(+4.7)</span></td><td>50.7 <span class="delta">(+6.3)</span></td><td>52.6 <span class="delta">(+5.2)</span></td><td>70.8 <span class="delta">(+4.6)</span></td><td>68.0 <span class="delta">(+4.3)</span></td><td>80.2 <span class="delta">(+8.3)</span></td><td>47.7 <span class="delta">(+3.4)</span></td><td>48.3 <span class="delta">(+3.5)</span></td><td>53.8 <span class="delta">(+4.5)</span></td></tr>
+              <tr><td>InternVL3.5-14B</td><td>56.0</td><td>72.3</td><td>49.6</td><td>47.1</td><td>70.6</td><td>68.2</td><td>75.6</td><td>48.8</td><td>47.0</td><td>46.2</td></tr>
+              <tr class="ours-row"><td>+ DynTrace</td><td>60.3 <span class="delta">(+4.3)</span></td><td>74.6 <span class="delta">(+2.3)</span></td><td>52.7 <span class="delta">(+3.1)</span></td><td>59.8 <span class="delta">(+12.7)</span></td><td>75.5 <span class="delta">(+4.9)</span></td><td>72.0 <span class="delta">(+3.8)</span></td><td>80.5 <span class="delta">(+4.9)</span></td><td>51.1 <span class="delta">(+2.3)</span></td><td>48.9 <span class="delta">(+1.9)</span></td><td>53.1 <span class="delta">(+6.9)</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="paper-card table-card">
+        <p class="card-kicker">merge_results</p>
+        <h3 class="title is-5">Comparison on VLM4D and DSI-Bench</h3>
+        <div class="table-scroll">
+          <table class="table is-fullwidth results-table merge-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th colspan="3" class="group-band-orange">VLM4D</th>
+                <th colspan="4" class="group-band-blue">DSI-Bench</th>
+              </tr>
+              <tr>
+                <th>Avg.</th>
+                <th>Real</th>
+                <th>Synthetic</th>
+                <th>Avg.</th>
+                <th>Obj-Scn</th>
+                <th>Obs-Scn</th>
+                <th>Obs-Obj</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="8"><em>Spatial MLLMs</em></td></tr>
+              <tr><td>SpaceR-7B</td><td>47.4</td><td>49.2</td><td>41.8</td><td>54.2</td><td>71.2</td><td>38.3</td><td>51.1</td></tr>
+              <tr><td>VST-7B-RL</td><td>44.7</td><td>45.1</td><td>43.1</td><td>51.5</td><td>69.4</td><td>34.8</td><td>48.4</td></tr>
+              <tr><td>Spatial-SSRL-7B</td><td>52.4</td><td>52.2</td><td>53.3</td><td>51.4</td><td>66.5</td><td>37.0</td><td>50.2</td></tr>
+              <tr><td>MLLM-4D-8B</td><td>59.1</td><td>59.3</td><td>58.4</td><td>45.2</td><td>61.3</td><td>33.4</td><td>30.9</td></tr>
+
+              <tr class="group-row"><td colspan="8"><em>Video MLLMs</em></td></tr>
+              <tr><td>LLaVA-OV-1.5-8B</td><td>46.3</td><td>47.8</td><td>41.3</td><td>52.7</td><td>72.2</td><td>36.6</td><td>42.2</td></tr>
+              <tr><td>InternVideo2.5-Chat-8B</td><td>49.0</td><td>50.6</td><td>44.0</td><td>49.4</td><td>64.0</td><td>35.0</td><td>49.3</td></tr>
+              <tr><td>VideoLLaMA3-7B</td><td>49.8</td><td>55.6</td><td>32.1</td><td>55.6</td><td>74.8</td><td>37.5</td><td>52.9</td></tr>
+
+              <tr class="group-row"><td colspan="8"><em>Training-free MLLMs</em></td></tr>
+              <tr><td>See&amp;Trek</td><td>47.8</td><td>44.6</td><td>57.5</td><td>52.7</td><td>66.1</td><td>38.5</td><td>56.5</td></tr>
+              <tr><td>GSM</td><td>48.4</td><td>48.6</td><td>47.6</td><td>54.7</td><td>73.9</td><td>36.8</td><td>51.1</td></tr>
+
+              <tr class="group-row"><td colspan="8"><em>Ours</em></td></tr>
+              <tr><td>Qwen3-VL-8B-Instruct</td><td>59.0</td><td>58.1</td><td>61.6</td><td>53.4</td><td>66.2</td><td>39.4</td><td>58.7</td></tr>
+              <tr class="ours-row"><td>+ DynTrace</td><td>64.2 <span class="delta">(+5.2)</span></td><td>62.9 <span class="delta">(+4.8)</span></td><td>68.3 <span class="delta">(+6.7)</span></td><td>56.4 <span class="delta">(+3.0)</span></td><td>67.8 <span class="delta">(+1.6)</span></td><td>43.5 <span class="delta">(+4.1)</span></td><td>63.1 <span class="delta">(+4.4)</span></td></tr>
+              <tr><td>InternVL3.5-8B</td><td>48.6</td><td>49.5</td><td>46.1</td><td>44.5</td><td>52.1</td><td>35.0</td><td>51.6</td></tr>
+              <tr class="ours-row"><td>+ DynTrace</td><td>54.7 <span class="delta">(+6.1)</span></td><td>53.2 <span class="delta">(+3.7)</span></td><td>59.2 <span class="delta">(+13.1)</span></td><td>48.7 <span class="delta">(+4.2)</span></td><td>53.1 <span class="delta">(+1.0)</span></td><td>41.5 <span class="delta">(+6.5)</span></td><td>59.0 <span class="delta">(+7.4)</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="paper-card table-card">
+        <p class="card-kicker">comprehensive_ablation</p>
+        <h3 class="title is-5">Ablation studies on Dyn-Bench</h3>
+        <div class="table-scroll">
+          <table class="table is-fullwidth results-table ablation-table comprehensive-ablation-table">
+            <thead>
+              <tr>
+                <th>Variant</th>
+                <th>Avg.</th>
+                <th class="group-band-orange">Inter-Object</th>
+                <th class="group-band-yellow">Object-Scene</th>
+                <th class="group-band-blue">Camera-Object</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Qwen3-VL-8B</td><td>60.8</td><td>56.7</td><td>74.2</td><td>54.7</td></tr>
+              <tr><td>+ DTG</td><td>63.0</td><td>61.8</td><td>76.3</td><td>55.0</td></tr>
+              <tr><td>+ DTV</td><td>61.7</td><td>59.3</td><td>74.5</td><td>54.8</td></tr>
+              <tr class="ours-row"><td>+ DTV &amp; DTG</td><td>65.8</td><td>63.6</td><td>79.6</td><td>58.0</td></tr>
+              <tr class="group-row"><td colspan="5"><em>DT-Token Components</em></td></tr>
+              <tr><td>InternVL3.5-8B</td><td>53.2</td><td>50.8</td><td>66.8</td><td>45.9</td></tr>
+              <tr><td>+ Cues</td><td>56.8</td><td>55.5</td><td>70.6</td><td>48.4</td></tr>
+              <tr><td>+ Cues &amp; Trace</td><td>57.6</td><td>56.6</td><td>70.8</td><td>50.1</td></tr>
+              <tr class="ours-row"><td>+ Cues &amp; Trace &amp; Moments</td><td>58.0</td><td>56.8</td><td>72.3</td><td>50.3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="qualitative">
+  <div class="container is-max-widescreen">
+    <div class="section-intro has-text-centered wide-intro">
+      <p class="section-kicker">Qualitative Results</p>
+      <h2 class="title is-3 section-title">How DTV and DTG change the evidence path.</h2>
+      <p class="section-copy">
+        The qualitative examples below all present DynTrace gains through progressively richer visual and structured evidence.
+      </p>
+    </div>
+
+    <div class="qualitative-stack">
+      <div class="paper-card qualitative-block">
+        <h3 class="title is-5">Qualitative_Cases_1</h3>
+        <div class="image-frame tall-frame">
+          <a href="./assets/cases.png" target="_blank" rel="noreferrer">
+            <img src="./assets/cases.png" alt="Qualitative results of DynTrace on two representative cases.">
+          </a>
+        </div>
+        <p class="figure-caption">
+          This figure shows the two most representative gain patterns in the main paper: DTV corrects ambiguous camera-relative motion in case (a), while DTG preserves long-range relation traces in case (b), leading to correct predictions in both cases.
+        </p>
+      </div>
+
+      <div class="paper-card qualitative-block">
+        <h3 class="title is-5">Qualitative_Cases_2</h3>
+        <div class="image-frame tall-frame">
+          <a href="./assets/more_cases_2.png" target="_blank" rel="noreferrer">
+            <img src="./assets/more_cases_2.png" alt="Additional trajectory change and interaction distance cases.">
+          </a>
+        </div>
+        <p class="figure-caption">
+          Additional baseline-versus-DynTrace comparisons on trajectory change and interaction distance reasoning questions.
+        </p>
+      </div>
+
+      <div class="paper-card qualitative-block">
+        <h3 class="title is-5">Attention Stabilization</h3>
+        <div class="image-frame attention-fit-frame">
+          <a href="./assets/attention_case.png" target="_blank" rel="noreferrer">
+            <img src="./assets/attention_case.png" alt="Attention comparison between baseline and DynTrace.">
+          </a>
+        </div>
+        <p class="figure-caption">
+          The baseline attention gradually drifts toward visually salient but temporally irrelevant regions, while DynTrace keeps attention concentrated on the query-relevant dynamic object and its evolution.
+        </p>
+      </div>
+
+      <div class="paper-card qualitative-block">
+        <h3 class="title is-5">Current Limitations</h3>
+        <div class="image-frame tall-frame">
+          <a href="./assets/limitations.png" target="_blank" rel="noreferrer">
+            <img src="./assets/limitations.png" alt="Representative limitation cases of DynTrace.">
+          </a>
+        </div>
+        <p class="figure-caption">
+          DynTrace is still less sufficient when reasoning requires object-centric first-person frame conversion or subtle part-level motion analysis, which indicates the next direction for improving dynamic object evidence.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft" id="bibtex">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title has-text-centered">BibTeX</h2>
+        <pre><code id="bibtex-block">@misc{gao2026dyntrace,
+  title        = {DynTrace: Tracking Dynamic Object Evidence for 4D Spatio-Temporal Reasoning in MLLMs},
+  author       = {Rongxin Gao and Yuzhi Huang and Dongxuan Liu and Chu Li and Zhenye Wang and Jie Wu and Shuzhao Xie and Jingyan Jiang and Xinghao Ding and Xiaotong Tu and Yue Huang},
+  year         = {2026},
+  note         = {Manuscript}
+}</code></pre>
+        <div class="has-text-centered bibtex-actions">
+          <button id="copy-bibtex" class="button is-dark is-rounded" type="button">Copy BibTeX</button>
+          <p id="copy-status" class="copy-status">Ready to copy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>DynTrace project page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
