@@ -34,10 +34,12 @@ This repository is the official implementation of **DynTrace: Tracking Dynamic O
 ## BibTeX
 
 ```bibtex
-@inproceedings{gao2026dyntrace,
-  title={DynTrace: Tracking Dynamic Object Evidence for 4D Spatio-Temporal Reasoning in MLLMs},
-  author={Gao, Rongxin and Huang, Yuzhi and Liu, Dongxuan and Li, Chu Ext and Wang, Zhenye and Wu, Jie and Xie, Shuzhao and Jiang, Jingyan and Ding, Xinghao and Tu, Xiaotong and Huang, Yue},
-  booktitle={Proceedings of the ACM International Conference on Multimedia (ACM MM)},
-  year={2026},
-  note={Accepted. arXiv preprint arXiv:2607.12503}
+@misc{gao2026dyntracetrackingdynamicobject,
+      title={DynTrace: Tracking Dynamic Object Evidence for 4D Spatio-Temporal Reasoning in MLLMs}, 
+      author={Rongxin Gao and Yuzhi Huang and Dongxuan Liu and Chu Li and Zhenye Wang and Jie Wu and Shuzhao Xie and Jingyan Jiang and Xinghao Ding and Xiaotong Tu and Yue Huang},
+      year={2026},
+      eprint={2607.12503},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2607.12503}, 
 }
